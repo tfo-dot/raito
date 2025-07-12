@@ -81,9 +81,9 @@ func CalculateScore(minutes int) int {
 func HandleJoin(e *events.GuildVoiceJoin) {
 	uid := e.Member.User.ID
 
-	BotLog(e.Member, "Użytkownik dołączył na kanał głosowy")
-
 	if _, has := Store[uid]; !has {
+		BotLog(e.Member, "Użytkownik dołączył na kanał głosowy")
+
 		Store[uid] = time.Now()
 	}
 }
@@ -114,6 +114,7 @@ func HandleLeave(e *events.GuildVoiceLeave) {
 	_, err := TatsuApi.ModifyGuildMemberScore(AppConfig.DiscordGid, uid.String(), tatsu_api.ActionAdd, uint32(score))
 
 	if err != nil {
+		BotLog(e.Member, "Discord error moment")
 		panic(err)
 	}
 
