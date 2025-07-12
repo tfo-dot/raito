@@ -114,7 +114,7 @@ func HandleLeave(e *events.GuildVoiceLeave) {
 	_, err := TatsuApi.ModifyGuildMemberScore(AppConfig.DiscordGid, uid.String(), tatsu_api.ActionAdd, uint32(score))
 
 	if err != nil {
-		BotLog(e.Member, "Discord error moment")
+		BotLog(e.Member, fmt.Sprintf("Przyznano %d punktów za siedzenie na VC (tatsu error)", score))
 		panic(err)
 	}
 
